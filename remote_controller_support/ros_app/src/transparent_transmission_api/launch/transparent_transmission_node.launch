@@ -1,0 +1,11 @@
+<launch>
+
+  <arg name="namespace" default="dji_m100"/>
+  <group ns="$(arg namespace)">
+    <node pkg="transparent_transmission_api" name="transparent_transmission_api_node" type="transparent_transmission_api_node" output="screen">
+        <remap from="~in" to="IcgDjiTaskScheduler/out" />
+        <remap from="~out" to="IcgDjiTaskScheduler/in" />
+    </node>
+  </group>
+
+</launch>

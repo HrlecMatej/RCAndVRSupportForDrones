@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="steeringButtonSize">120dp</dimen>
+    <dimen name="commandButtonSize">70dp</dimen>
+    <dimen name="buttonTextSize">32dp</dimen>
+    <dimen name="tableDataLeftPadding">45dp</dimen>
+    <dimen name="tableLabelLeftPadding">5dp</dimen>
+    <dimen name="tableTextSize">17dp</dimen>
+</resources>

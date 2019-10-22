@@ -1,0 +1,23 @@
+{
+    "configurations": [
+        {
+            "browse": {
+                "databaseFilename": "",
+                "limitSymbolsToIncludedHeaders": true
+            },
+            "includePath": [
+                "/home/sickness/Develop/DJI/transparent_transmission_ws/devel/include",
+                "/home/sickness/Develop/DJI/onboard_sdk_ros/devel/include",
+                "/opt/ros/indigo/include",
+                "/home/sickness/Develop/DJI/transparent_transmission_ws/src/transparent_transmission_api/include",
+                "/usr/include"
+            ],
+            "name": "Linux",
+            "intelliSenseMode": "clang-x64",
+            "compilerPath": "/usr/bin/clang++-3.9",
+            "cStandard": "c11",
+            "cppStandard": "c++17"
+        }
+    ],
+    "version": 4
+}

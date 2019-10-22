@@ -1,0 +1,682 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--<Button
+        android:id="@+id/buttonStopSendingFile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="10dp"
+        android:onClick="stopSendingFile"
+        android:text="Stop sending a file"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/progressBarFile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonSendFile" />-->
+
+    <TableLayout
+        android:id="@+id/tableButtons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/buttonRotateLeft"
+                android:layout_width="@dimen/steeringButtonSize"
+                android:layout_height="@dimen/steeringButtonSize"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/rotate_left" />
+
+            <ImageButton
+                android:id="@+id/buttonMoveForward"
+                android:layout_width="@dimen/steeringButtonSize"
+                android:layout_height="@dimen/steeringButtonSize"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/ic_arrow_upward_black_24dp" />
+
+            <ImageButton
+                android:id="@+id/buttonRotateRight"
+                android:layout_width="@dimen/steeringButtonSize"
+                android:layout_height="@dimen/steeringButtonSize"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/rotate_right" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/buttonMoveLeft"
+                android:layout_width="@dimen/steeringButtonSize"
+                android:layout_height="@dimen/steeringButtonSize"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
+
+            <Space />
+
+            <ImageButton
+                android:id="@+id/buttonMoveRight"
+                android:layout_width="@dimen/steeringButtonSize"
+                android:layout_height="@dimen/steeringButtonSize"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/ic_arrow_forward_black_24dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/buttonMoveDown"
+                android:layout_width="@dimen/steeringButtonSize"
+                android:layout_height="@dimen/steeringButtonSize"
+                android:text="Down"
+                android:textStyle="bold"
+                android:textSize="@dimen/buttonTextSize" />
+
+            <ImageButton
+                android:id="@+id/buttonMoveBackward"
+                android:layout_width="@dimen/steeringButtonSize"
+                android:layout_height="@dimen/steeringButtonSize"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/ic_arrow_downward_black_24dp" />
+
+            <Button
+                android:id="@+id/buttonMoveUp"
+                android:layout_width="@dimen/steeringButtonSize"
+                android:layout_height="@dimen/steeringButtonSize"
+                android:text="Up"
+                android:textStyle="bold"
+                android:textSize="@dimen/buttonTextSize" />
+
+        </TableRow>
+
+    </TableLayout>
+
+    <Button
+        android:id="@+id/buttonSendFile"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/commandButtonSize"
+        android:layout_marginTop="20dp"
+        android:text="Send config"
+        android:textSize="@dimen/buttonTextSize"
+        app:layout_constraintStart_toStartOf="@+id/tableButtons"
+        app:layout_constraintTop_toBottomOf="@+id/tableButtons" />
+
+    <ProgressBar
+        android:id="@+id/progressBarFile"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:scaleY="2.9"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:layout_marginStart="10dp"
+        android:max="100"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonSendFile"
+        app:layout_constraintStart_toEndOf="@+id/buttonSendFile"
+        app:layout_constraintTop_toTopOf="@+id/buttonSendFile" />
+
+    <TextView
+        android:id="@+id/textLogger"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="Awesomium™ Logger"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="40dp"
+        android:layout_marginStart="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tableButtons"
+        app:layout_constraintTop_toTopOf="@+id/tableButtons">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/buttonTakeOff"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/commandButtonSize"
+                android:text="Take-off"
+                android:textSize="@dimen/buttonTextSize" />
+
+            <Button
+                android:id="@+id/buttonFlyTrajectory"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/commandButtonSize"
+                android:text="Fly trajectory"
+                android:textSize="@dimen/buttonTextSize" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/buttonLand"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/commandButtonSize"
+                android:text="Land"
+                android:textSize="@dimen/buttonTextSize" />
+
+            <Button
+                android:id="@+id/buttonHover"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/commandButtonSize"
+                android:text="Hover"
+                android:textSize="@dimen/buttonTextSize" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </TableLayout>
+
+    <TableLayout
+        android:id="@+id/tableLayout3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/tableLayout"
+        app:layout_constraintStart_toStartOf="@+id/tableLayout"
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="GPS POSITION:"
+                android:textSize="@dimen/tableTextSize"
+                android:textStyle="bold" />
+
+            <FrameLayout
+                android:layout_width="@dimen/steeringButtonSize"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/textGpsLatitude"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:paddingLeft="@dimen/tableDataLeftPadding"
+                    android:text=""
+                    android:textSize="@dimen/tableTextSize" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingLeft="@dimen/tableLabelLeftPadding"
+                    android:text="lat:"
+                    android:textSize="@dimen/tableTextSize"
+                    android:textStyle="bold" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="@dimen/steeringButtonSize"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/textGpsLongitude"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:paddingLeft="@dimen/tableDataLeftPadding"
+                    android:text=""
+                    android:textSize="@dimen/tableTextSize" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingLeft="@dimen/tableLabelLeftPadding"
+                    android:text="lon:"
+                    android:textSize="@dimen/tableTextSize"
+                    android:textStyle="bold" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="@dimen/steeringButtonSize"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/textGpsAltitude"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:paddingLeft="@dimen/tableDataLeftPadding"
+                    android:text=""
+                    android:textSize="@dimen/tableTextSize" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingLeft="@dimen/tableLabelLeftPadding"
+                    android:text="alt:"
+                    android:textSize="@dimen/tableTextSize"
+                    android:textStyle="bold" />
+            </FrameLayout>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="POSITION:"
+                android:textSize="@dimen/tableTextSize"
+                android:textStyle="bold" />
+
+            <FrameLayout
+                android:layout_width="@dimen/steeringButtonSize"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/textPositionX"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:paddingLeft="@dimen/tableDataLeftPadding"
+                    android:text=""
+                    android:textSize="@dimen/tableTextSize" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingLeft="@dimen/tableLabelLeftPadding"
+                    android:text="x:"
+                    android:textSize="@dimen/tableTextSize"
+                    android:textStyle="bold" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="@dimen/steeringButtonSize"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/textPositionY"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:paddingLeft="@dimen/tableDataLeftPadding"
+                    android:text=""
+                    android:textSize="@dimen/tableTextSize" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingLeft="@dimen/tableLabelLeftPadding"
+                    android:text="y:"
+                    android:textSize="@dimen/tableTextSize"
+                    android:textStyle="bold" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="@dimen/steeringButtonSize"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/textPositionZ"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:paddingLeft="@dimen/tableDataLeftPadding"
+                    android:text=""
+                    android:textSize="@dimen/tableTextSize" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingLeft="@dimen/tableLabelLeftPadding"
+                    android:text="z:"
+                    android:textSize="@dimen/tableTextSize"
+                    android:textStyle="bold" />
+            </FrameLayout>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="ORIENTATION:"
+                android:textSize="@dimen/tableTextSize"
+                android:textStyle="bold" />
+
+            <FrameLayout
+                android:layout_width="@dimen/steeringButtonSize"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/textOrientationRoll"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:paddingLeft="@dimen/tableDataLeftPadding"
+                    android:text=""
+                    android:textSize="@dimen/tableTextSize" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingLeft="@dimen/tableLabelLeftPadding"
+                    android:text="roll:"
+                    android:textSize="@dimen/tableTextSize"
+                    android:textStyle="bold" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="@dimen/steeringButtonSize"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/textOrientationPitch"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:paddingLeft="@dimen/tableDataLeftPadding"
+                    android:text=""
+                    android:textSize="@dimen/tableTextSize" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingLeft="@dimen/tableLabelLeftPadding"
+                    android:text="pit.:"
+                    android:textSize="@dimen/tableTextSize"
+                    android:textStyle="bold" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="@dimen/steeringButtonSize"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/textOrientationYaw"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:paddingLeft="@dimen/tableDataLeftPadding"
+                    android:text=""
+                    android:textSize="@dimen/tableTextSize" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingLeft="@dimen/tableLabelLeftPadding"
+                    android:text="yaw:"
+                    android:textSize="@dimen/tableTextSize"
+                    android:textStyle="bold" />
+            </FrameLayout>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="LINEAR VEL.:"
+                android:textSize="@dimen/tableTextSize"
+                android:textStyle="bold" />
+
+            <FrameLayout
+                android:layout_width="@dimen/steeringButtonSize"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/textLinearVelocityX"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:paddingLeft="@dimen/tableDataLeftPadding"
+                    android:text=""
+                    android:textSize="@dimen/tableTextSize" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingLeft="@dimen/tableLabelLeftPadding"
+                    android:text="vx:"
+                    android:textSize="@dimen/tableTextSize"
+                    android:textStyle="bold" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="@dimen/steeringButtonSize"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/textLinearVelocityY"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:paddingLeft="@dimen/tableDataLeftPadding"
+                    android:text=""
+                    android:textSize="@dimen/tableTextSize" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingLeft="@dimen/tableLabelLeftPadding"
+                    android:text="vy:"
+                    android:textSize="@dimen/tableTextSize"
+                    android:textStyle="bold" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="@dimen/steeringButtonSize"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/textLinearVelocityZ"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:paddingLeft="@dimen/tableDataLeftPadding"
+                    android:text=""
+                    android:textSize="@dimen/tableTextSize" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingLeft="@dimen/tableLabelLeftPadding"
+                    android:text="z:"
+                    android:textSize="@dimen/tableTextSize"
+                    android:textStyle="bold" />
+            </FrameLayout>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="ANGULAR VEL.:"
+                android:textSize="@dimen/tableTextSize"
+                android:textStyle="bold" />
+
+            <FrameLayout
+                android:layout_width="@dimen/steeringButtonSize"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/textAngularVelocityX"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:paddingLeft="@dimen/tableDataLeftPadding"
+                    android:text=""
+                    android:textSize="@dimen/tableTextSize" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingLeft="@dimen/tableLabelLeftPadding"
+                    android:text="wx:"
+                    android:textSize="@dimen/tableTextSize"
+                    android:textStyle="bold" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="@dimen/steeringButtonSize"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/textAngularVelocityY"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:paddingLeft="@dimen/tableDataLeftPadding"
+                    android:text=""
+                    android:textSize="@dimen/tableTextSize" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingLeft="@dimen/tableLabelLeftPadding"
+                    android:text="wy:"
+                    android:textSize="@dimen/tableTextSize"
+                    android:textStyle="bold" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="@dimen/steeringButtonSize"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/textAngularVelocityZ"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:paddingLeft="@dimen/tableDataLeftPadding"
+                    android:text=""
+                    android:textSize="@dimen/tableTextSize" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingLeft="@dimen/tableLabelLeftPadding"
+                    android:text="wz:"
+                    android:textSize="@dimen/tableTextSize"
+                    android:textStyle="bold" />
+            </FrameLayout>
+        </TableRow>
+
+    </TableLayout>
+
+    <Button
+        android:id="@+id/buttonSendBandwidthTest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Send bandwidth"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tableLayout3" />
+
+    <Button
+        android:id="@+id/buttonReceiveBandwidthTest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Receive bandwidth"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonSendBandwidthTest"
+        app:layout_constraintStart_toEndOf="@+id/buttonSendBandwidthTest"
+        app:layout_constraintTop_toTopOf="@+id/buttonSendBandwidthTest" />
+
+</android.support.constraint.ConstraintLayout>

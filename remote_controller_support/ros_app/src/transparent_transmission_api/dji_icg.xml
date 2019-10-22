@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<mavlink>
+  <include>common.xml</include>
+  <version>3</version>
+  <enums>
+    <enum name="DJI_FTP_REQUEST_RESULT">
+      <description>Result from a DJI file transfer request.</description>
+      <entry value="0" name="DJI_FTP_REQUEST_RESULT_ACCEPTED">
+        <description>Request accepted and files can start transfering</description>
+      </entry>
+      <entry value="1" name="DJI_FTP_REQUEST_RESULT_FAILED">
+        <description>Problems with file creation</description>
+      </entry>
+      <entry value="2" name="DJI_FTP_REQUEST_RESULT_IN_PROGRESS">
+        <description>Files already being transmitted</description>
+      </entry>
+    </enum>
+    <enum name="DJI_TOPIC_NAME">
+      <description>An enum holding the combinations of topic names and header frames.</description>
+      <entry value="0" name="DJI_TOPIC_NAME_SETPOINT">
+        <description>Setpoint.</description>
+      </entry>
+      <entry value="1" name="DJI_TOPIC_NAME_DRONE_POSITION">
+        <description>Drone position.</description>
+      </entry>
+      <entry value="2" name="DJI_TOPIC_NAME_RUINA_IN_PARIETE">
+        <description>TEST - Crash into a wall</description>
+      </entry>
+    </enum>
+    <enum name="DJI_ACTION">
+      <description>An enum for different simple commands for the drone.</description>
+      <entry value="0" name="DJI_ACTION_TAKE_OFF">
+        <description>Take off command.</description>
+      </entry>
+      <entry value="1" name="DJI_ACTION_LAND">
+        <description>Land command.</description>
+      </entry>
+      <entry value="2" name="DJI_ACTION_FLY_TRAJECTORY">
+        <description>Command to fly the trajectory.</description>
+      </entry>
+      <entry value="3" name="DJI_ACTION_HOVER">
+        <description>Command to hover.</description>
+      </entry>
+      <entry value="4" name="DJI_ACTION_SYNC_TIME">
+        <description>Uses the time from the message to sync the clocks.</description>
+      </entry>
+    </enum>
+  </enums>
+  <messages>
+    <!-- Messages specifically designated for DJI Matrice 100 at ICG -->
+    <!-- MESSAGE IDs 180 - 229: Space for custom messages in individual projectname_messages.xml files -->
+    <message id="50000" name="DJI_FTP_REQUEST">
+      <description>Request the drone to prepare for file transmission. Expects an ACK</description>
+      <field type="uint8_t" name="target_system">System ID (0 for broadcast)</field>
+      <field type="uint32_t" name="file_size">Size of file in bytes.</field>
+      <field type="uint8_t" name="file_id">A number, that gets incremented for every new file sent. Helps identify to which file the consquent messages belong.</field>
+      <field type="uint8_t[64]" name="file_name">File name, terminated by NULL.</field>
+    </message>
+    <message id="50001" name="DJI_FTP_REQUEST_ACK">
+      <description>Answer to the request for file transfer</description>
+      <field type="uint8_t" name="target_system">System which requested the command to be executed.</field>
+      <field type="uint8_t" name="file_id">Id of the file.</field>
+      <field type="uint8_t" name="result" enum="DJI_FTP_REQUEST_RESULT">See DJI_FTP_REQUEST_RESULT enum</field>
+      <field type="uint8_t" name="progress" units="%">If a file transfer is IN_PROGRESS, this returns the progress in %</field>
+    </message>
+    <message id="50002" name="DJI_FTP">
+      <description>Send a part of the file.</description>
+      <field type="uint8_t" name="target_system">System ID (0 for broadcast).</field>
+      <field type="uint8_t" name="file_id">Id of the file.</field>
+      <field type="uint16_t" name="sequence">Sequence number.</field>
+      <field type="uint8_t[250]" name="payload">Variable length payload. The length is defined by the remaining message length when subtracting the header and other fields.</field>
+    </message>
+    <message id="50003" name="DJI_FTP_REQUEST_RESEND">
+      <description>After getting the last part or timing out, request individual lost parts of a file. If there are no problems, set sequence numbers to 65,536</description>
+      <field type="uint8_t" name="target_system">System which requested the command to be executed.</field>
+      <field type="uint8_t" name="file_id">Id of the file.</field>
+      <field type="uint16_t" name="sequence_start">Starting sequence number.</field>
+      <field type="uint16_t" name="sequence_end">End sequence number.</field>
+    </message>
+
+    <message id="50004" name="DJI_POSE_STAMPED">
+      <description>Set position in pose stamped format.</description>
+      <field type="uint8_t" name="target_system">System ID</field>
+      <field type="uint32_t" name="sec">Timestamp - Seconds since epoch</field>
+      <field type="uint32_t" name="nsec">Timestamp since epoch = sec + nsec * 10^-9</field>
+
+      <field type="uint8_t" name="topic_name" enum="DJI_TOPIC_NAME">See DJI_TOPIC_NAME enum</field>
+      
+      <field type="double[3]" name="position">Position</field>
+      <field type="double[4]" name="orientation">Orientation</field>
+    </message>
+
+    <message id="50005" name="DJI_ACTION_COMMAND">
+      <description>Simple commands for the drone.</description>
+      <field type="uint8_t" name="target_system">System ID</field>
+      <field type="uint32_t" name="sec">Timestamp - Seconds since epoch</field>
+      <field type="uint32_t" name="nsec">Timestamp since epoch = sec + nsec * 10^-9</field>
+
+      <field type="int32_t" name="action" enum="DJI_ACTION">See DJI_ACTION enum</field>
+    </message>
+
+    <message id="50006" name="ROS_NAV_SAT_FIX">
+      <description>Simple commands for the drone.</description>
+      <field type="uint8_t" name="target_system">System ID</field>
+      <field type="uint32_t" name="sec">Timestamp - Seconds since epoch</field>
+      <field type="uint32_t" name="nsec">Timestamp since epoch = sec + nsec * 10^-9</field>
+
+      <field type="int8_t" name="status" enum="ROS_NAV_SAT_STATUS">See ROS_NAV_SAT_STATUS enum</field>
+      <field type="uint16_t" name="service" enum="ROS_NAV_SAT_SERVICE">See ROS_NAV_SAT_SERVICE enum</field>
+    
+      <field type="double" name="latitude">Latitude</field>
+      <field type="double" name="longitude">Longitude</field>
+      <field type="double" name="altitude">Altitude</field>
+      <!-->
+      float64[9] position_covariance
+      uint8 position_covariance_type
+      <-->
+    </message>
+
+    <message id="50007" name="ROS_ODOMETRY">
+      <description>Simple commands for the drone.</description>
+      <field type="uint8_t" name="target_system">System ID</field>
+      <field type="uint32_t" name="sec">Timestamp - Seconds since epoch</field>
+      <field type="uint32_t" name="nsec">Timestamp since epoch = sec + nsec * 10^-9</field>
+
+      <field type="double[3]" name="position">Position</field>
+      <field type="double[4]" name="orientation">Orientation</field>
+
+      <field type="double[3]" name="linear">Linear velocity in the free space.</field>
+      <field type="double[3]" name="angular">Angular velocity in the free space.</field>
+    </message>
+
+    <message id="50008" name="DJI_LOG">
+      <description>Send a part of the file.</description>
+      <field type="uint8_t" name="target_system">System ID (0 for broadcast).</field>
+
+      <field type="uint8_t[253]" name="log_message">Variable length message. The length is defined by the remaining message length when subtracting the header and other fields.</field>
+    </message>
+  </messages>
+</mavlink>

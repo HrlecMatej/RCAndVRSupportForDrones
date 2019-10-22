@@ -1,0 +1,26 @@
+<library path="lib/libmavros_plugins">
+  <class type="icg_plugins::SetpointPositionPlugin" base_class_type="icg_plugins::PluginBase">
+    <description>Setpoint plugin</description>
+  </class>
+  <class type="icg_plugins::CommandPlugin" base_class_type="icg_plugins::PluginBase">
+    <description>Command plugin</description>
+  </class>
+  <class type="icg_plugins::HeartbeatPlugin" base_class_type="icg_plugins::PluginBase">
+    <description>Heartbeat plugin</description>
+  </class>
+  <class type="icg_plugins::DjiFtpPlugin" base_class_type="icg_plugins::PluginBase">
+    <description>Dji FTP plugin</description>
+  </class>
+  <class type="icg_plugins::DjiActionCommandPlugin" base_class_type="icg_plugins::PluginBase">
+    <description>Dji Action Command plugin</description>
+  </class>
+  <class type="icg_plugins::DjiPoseStampedPlugin" base_class_type="icg_plugins::PluginBase">
+    <description>Dji PoseStamped plugin</description>
+  </class>
+  <class type="icg_plugins::RosNavSatFixPlugin" base_class_type="icg_plugins::PluginBase">
+    <description>Ros NavSatFix plugin</description>
+  </class>
+  <class type="icg_plugins::RosOdometryPlugin" base_class_type="icg_plugins::PluginBase">
+    <description>Ros odometry plugin</description>
+  </class>
+</library>
