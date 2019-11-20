@@ -1,7 +1,7 @@
 # RCAndVRSupportForDrones
-Source code for my master thesis
+Source code for my master thesis.
 
-Detailed instructions are provided in sub-readmes
+Detailed instructions are provided in sub-readmes.
 
 My master's thesis provides with two contributions:
 - A communication protocol based on MAVLink between an Android device and a DJI drone's onboard ROS computer
