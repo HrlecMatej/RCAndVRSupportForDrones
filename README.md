@@ -7,7 +7,7 @@ My master's thesis provides with two contributions:
 - A communication protocol based on MAVLink between an Android device and a DJI drone's onboard ROS computer
 - A virtual reality plugin based on OpenVR for ROS, which runs natively in RViz's OGRE engine
 
-It was done under mentorship of Prof. Friedrich Fraundorfer and Prof. Matija Marolt, with the tutelage of assistants Jesús Pestana Puerta and Alexander W. Isop.
+It was done under mentorship of Prof. Friedrich Fraundorfer and Prof. Matija Marolt, with the tutelage of advisors Jesús Pestana Puerta and Alexander W. Isop.
 
 Link to Google Drive, containing a few videos of code in action: https://drive.google.com/drive/folders/1_dw5pWfECyFT5N4Vk5lfcv2X-rXcRgOX?usp=sharing
 
