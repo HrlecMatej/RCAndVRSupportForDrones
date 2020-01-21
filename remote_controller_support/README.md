@@ -1,7 +1,7 @@
 # remote_controller_support
 
 # android_app
-Requires installing Android StudioGradle build script will download and link up the dependencies
+Requires installing Android Studio. Gradle build script will download and link up the dependencies
 
 # ros_app
 Requires much more work:
