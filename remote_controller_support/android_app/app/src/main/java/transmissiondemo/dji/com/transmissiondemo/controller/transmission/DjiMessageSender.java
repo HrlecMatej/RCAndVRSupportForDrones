@@ -14,14 +14,14 @@ import dji.sdk.products.Aircraft;
 import transmissiondemo.dji.com.transmissiondemo.MainActivity;
 import transmissiondemo.dji.com.transmissiondemo.utilities.Utilities;
 
-public class CommandMessageSender {
+public class DjiMessageSender {
 
-    private static CommandMessageSender instance;
+    private static DjiMessageSender instance;
     private FlightController flightController;
 
-    private final BlockingQueue<Pair<SendCommandMessage, CompletableFuture<Void>>> queue = new LinkedBlockingQueue<>();
+    private final BlockingQueue<Pair<SendDjiMessage, CompletableFuture<Void>>> queue = new LinkedBlockingQueue<>();
 
-    private CommandMessageSender() {
+    private DjiMessageSender() {
         final Aircraft product = MainActivity.getAircraft();
         try {
             flightController = product.getFlightController();
@@ -33,11 +33,11 @@ public class CommandMessageSender {
         startSendingToRC();
     }
 
-    public static CommandMessageSender getInstance() {
+    public static DjiMessageSender getInstance() {
         if (instance == null) {
-            synchronized (CommandMessageSender.class) {
+            synchronized (DjiMessageSender.class) {
                 if (instance == null) {
-                    instance = new CommandMessageSender();
+                    instance = new DjiMessageSender();
                 }
             }
         }
@@ -50,9 +50,9 @@ public class CommandMessageSender {
      * @param command
      * @return
      */
-    public CompletableFuture<Void> addToQueue(final SendCommandMessage command) {
+    public CompletableFuture<Void> addToQueue(final SendDjiMessage command) {
         final CompletableFuture<Void> future = new CompletableFuture<>();
-        final Pair<SendCommandMessage, CompletableFuture<Void>> pair = new Pair<>(command, future);
+        final Pair<SendDjiMessage, CompletableFuture<Void>> pair = new Pair<>(command, future);
         queue.add(pair);
         return future;
     }
@@ -64,7 +64,7 @@ public class CommandMessageSender {
         new Thread(() -> {
             while (true) {
                 try {
-                    final Pair<SendCommandMessage, CompletableFuture<Void>> pair = queue.take();
+                    final Pair<SendDjiMessage, CompletableFuture<Void>> pair = queue.take();
                     sendBytesToRC(pair);
                 } catch (final InterruptedException e) {
                     Utilities.showToast("Something broke with Sender queue: " + e.getMessage());
@@ -95,8 +95,8 @@ public class CommandMessageSender {
      *
      * @param pair
      */
-    private void sendBytesToRC(final Pair<SendCommandMessage, CompletableFuture<Void>> pair) {
-        final SendCommandMessage command = pair.first;
+    private void sendBytesToRC(final Pair<SendDjiMessage, CompletableFuture<Void>> pair) {
+        final SendDjiMessage command = pair.first;
         final byte[] packetBytes = command.pack();
         final CompletableFuture<Void> future = pair.second;
         final byte[][] splitPacket = splitBytes(packetBytes, 100);

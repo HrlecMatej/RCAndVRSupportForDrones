@@ -3,10 +3,10 @@ package transmissiondemo.dji.com.transmissiondemo.controller.message.dji.ftp.sen
 import com.MAVLink.dji_icg.msg_dji_ftp_request;
 
 import transmissiondemo.dji.com.transmissiondemo.controller.message.dji.ftp.receive.DjiFtpRequestAckReceive;
-import transmissiondemo.dji.com.transmissiondemo.controller.transmission.SendCommandMessage;
+import transmissiondemo.dji.com.transmissiondemo.controller.transmission.SendDjiMessage;
 import transmissiondemo.dji.com.transmissiondemo.utilities.Utilities;
 
-public class DjiFtpRequestSend extends SendCommandMessage<msg_dji_ftp_request> {
+public class DjiFtpRequestSend extends SendDjiMessage<msg_dji_ftp_request> {
 
     // Takes care of file numbering
     private static short fileIdCounter = 0;

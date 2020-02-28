@@ -3,9 +3,9 @@ package transmissiondemo.dji.com.transmissiondemo.controller.message.dji.navsat.
 import com.MAVLink.dji_icg.msg_ros_nav_sat_fix;
 
 import transmissiondemo.dji.com.transmissiondemo.MainActivity;
-import transmissiondemo.dji.com.transmissiondemo.controller.transmission.ReceiveCommandMessage;
+import transmissiondemo.dji.com.transmissiondemo.controller.transmission.ReceiveDjiMessage;
 
-public class RosNavSatFixReceive extends ReceiveCommandMessage<msg_ros_nav_sat_fix> {
+public class RosNavSatFixReceive extends ReceiveDjiMessage<msg_ros_nav_sat_fix> {
 
     public long sec;
     public long nsec;
@@ -28,7 +28,7 @@ public class RosNavSatFixReceive extends ReceiveCommandMessage<msg_ros_nav_sat_f
     }
 
     @Override
-    protected void fillCommand(final msg_ros_nav_sat_fix msg) {
+    protected void fillMessage(final msg_ros_nav_sat_fix msg) {
         sec = msg.sec;
         nsec = msg.nsec;
 

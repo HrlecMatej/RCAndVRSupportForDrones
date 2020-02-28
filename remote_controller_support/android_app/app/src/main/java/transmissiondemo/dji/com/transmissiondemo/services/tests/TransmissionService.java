@@ -1,4 +1,4 @@
-package transmissiondemo.dji.com.transmissiondemo.services;
+package transmissiondemo.dji.com.transmissiondemo.services.tests;
 
 import android.app.Service;
 import android.content.Intent;

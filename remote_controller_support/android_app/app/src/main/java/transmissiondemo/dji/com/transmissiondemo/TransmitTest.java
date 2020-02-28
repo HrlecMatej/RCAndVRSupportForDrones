@@ -16,6 +16,9 @@ import transmissiondemo.dji.com.transmissiondemo.utilities.Utilities;
  * Created by sickness on 21.2.2018.
  */
 
+/**
+ * This class was used to measure bandwidth
+ */
 public class TransmitTest {
 
     final static int DJI_PACKET_SIZE = 100;

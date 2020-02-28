@@ -36,11 +36,11 @@ import dji.sdk.base.BaseComponent;
 import dji.sdk.base.BaseProduct;
 import dji.sdk.products.Aircraft;
 import dji.sdk.sdkmanager.DJISDKManager;
-import transmissiondemo.dji.com.transmissiondemo.services.DroneStatus;
-import transmissiondemo.dji.com.transmissiondemo.services.ReceiveBandwidthTestAsync;
-import transmissiondemo.dji.com.transmissiondemo.services.SendBandwidthTestAsync;
-import transmissiondemo.dji.com.transmissiondemo.services.SendFileAsync;
 import transmissiondemo.dji.com.transmissiondemo.services.SimpleDroneControls;
+import transmissiondemo.dji.com.transmissiondemo.services.DroneStatus;
+import transmissiondemo.dji.com.transmissiondemo.services.tests.ReceiveBandwidthTestAsync;
+import transmissiondemo.dji.com.transmissiondemo.services.tests.SendBandwidthTestAsync;
+import transmissiondemo.dji.com.transmissiondemo.services.SendFileAsync;
 import transmissiondemo.dji.com.transmissiondemo.utilities.Utilities;
 
 public class MainActivity extends AppCompatActivity {

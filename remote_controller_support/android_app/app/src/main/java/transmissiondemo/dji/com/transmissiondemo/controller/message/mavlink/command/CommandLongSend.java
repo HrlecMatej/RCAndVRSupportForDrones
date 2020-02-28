@@ -2,9 +2,9 @@ package transmissiondemo.dji.com.transmissiondemo.controller.message.mavlink.com
 
 import com.MAVLink.common.msg_command_long;
 
-import transmissiondemo.dji.com.transmissiondemo.controller.transmission.SendCommandMessage;
+import transmissiondemo.dji.com.transmissiondemo.controller.transmission.SendDjiMessage;
 
-public abstract class CommandLongSend extends SendCommandMessage<msg_command_long> {
+public abstract class CommandLongSend extends SendDjiMessage<msg_command_long> {
     private final short targetSystem;
     private final short targetComponent;
     private final short confirmation;

@@ -14,19 +14,19 @@ import io.reactivex.subjects.BehaviorSubject;
 import transmissiondemo.dji.com.transmissiondemo.MainActivity;
 import transmissiondemo.dji.com.transmissiondemo.utilities.Utilities;
 
-public class CommandMessageReceiver {
+public class DjiMessageReceiver {
 
-    private static CommandMessageReceiver instance;
+    private static DjiMessageReceiver instance;
     private FlightController flightController;
     private Parser parser;
 
     // Needed to overwrite last received message
     // Will be ignored by the ReceiveCommandMessages
-    public static final msg_heartbeat EMPTY_MSG = new msg_heartbeat();
+    static final msg_heartbeat EMPTY_MSG = new msg_heartbeat();
 
-    public BehaviorSubject<MAVLinkMessage> publishSubject;
+    private BehaviorSubject<MAVLinkMessage> publishSubject;
 
-    private CommandMessageReceiver() {
+    private DjiMessageReceiver() {
         final Aircraft product = MainActivity.getAircraft();
         try {
             flightController = product.getFlightController();
@@ -43,18 +43,18 @@ public class CommandMessageReceiver {
         listenToRC();
     }
 
-    public static CommandMessageReceiver getInstance() {
+    public static DjiMessageReceiver getInstance() {
         if (instance == null) {
-            synchronized (CommandMessageReceiver.class) {
+            synchronized (DjiMessageReceiver.class) {
                 if (instance == null) {
-                    instance = new CommandMessageReceiver();
+                    instance = new DjiMessageReceiver();
                 }
             }
         }
         return instance;
     }
 
-    public static BehaviorSubject<MAVLinkMessage> getPublishSubject() {
+    static BehaviorSubject<MAVLinkMessage> getPublishSubject() {
         return getInstance().publishSubject;
     }
 
@@ -64,7 +64,6 @@ public class CommandMessageReceiver {
 
     private OnboardSDKDeviceDataCallback receiveCompletionCallback() {
         return (final byte[] message) -> {
-
             final int previousCrcErrorCount = parser.stats.crcErrorCount;
             MAVLinkPacket packet = null;
             for (final byte b : message) {

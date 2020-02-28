@@ -11,13 +11,13 @@ import java.util.function.Predicate;
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 
-public abstract class ReceiveCommandMessage<T extends MAVLinkMessage> extends CommandMessage<T> {
+public abstract class ReceiveDjiMessage<T extends MAVLinkMessage> extends DjiMessage<T> {
 
     private final long TIMEOUT_SECONDS = 10;
 
     protected Predicate<T> filterPredicate;
 
-    protected ReceiveCommandMessage(final int msgId, final Runnable onSuccessCallback, final Runnable onFailureCallback) {
+    protected ReceiveDjiMessage(final int msgId, final Runnable onSuccessCallback, final Runnable onFailureCallback) {
         super(msgId, onSuccessCallback, onFailureCallback);
     }
 
@@ -31,11 +31,10 @@ public abstract class ReceiveCommandMessage<T extends MAVLinkMessage> extends Co
         subscribeToRC(true);
     }
 
-
     private Observable<MAVLinkMessage> getObservable() {
-        return CommandMessageReceiver.getPublishSubject()
+        return DjiMessageReceiver.getPublishSubject()
             .filter(mavLinkMessage -> {
-                if (mavLinkMessage == CommandMessageReceiver.EMPTY_MSG) {
+                if (mavLinkMessage == DjiMessageReceiver.EMPTY_MSG) {
                     return false;
                 }
                 // Should filter out every message that doesn't belong here
@@ -58,13 +57,15 @@ public abstract class ReceiveCommandMessage<T extends MAVLinkMessage> extends Co
             .timeout(TIMEOUT_SECONDS, TimeUnit.SECONDS);
     }
 
-    protected abstract void fillCommand(T msg);
+    /**
+     * Defines the mapping from the MavLink message received via RC to our ReceiveDjiMessage
+     * @param msg
+     */
+    protected abstract void fillMessage(T msg);
 
     /**
      * Waits for callback from RC. When he receives it, he tries to parse it.
      * If unsuccessful, it was probably meant for another ReceiveCommandMessage.
-     *
-     * @return
      */
     private void subscribeToRC(final boolean indefinite) {
         final Observable<MAVLinkMessage> observable =
@@ -74,8 +75,9 @@ public abstract class ReceiveCommandMessage<T extends MAVLinkMessage> extends Co
 
         final Disposable subscribe = observable
             .subscribe(message -> {
-                    CommandMessageReceiver.getPublishSubject()
-                        .onNext(CommandMessageReceiver.EMPTY_MSG);
+                    // This will "clear" the cache of the BehaviourSubject
+                    DjiMessageReceiver.getPublishSubject()
+                        .onNext(DjiMessageReceiver.EMPTY_MSG);
                     future.complete((T) message);
                 },
                 error -> onFailure());
@@ -85,7 +87,7 @@ public abstract class ReceiveCommandMessage<T extends MAVLinkMessage> extends Co
             if (!subscribe.isDisposed()) {
                 subscribe.dispose();
             }
-            fillCommand(message);
+            fillMessage(message);
             onSuccess();
         } catch (final Exception e) {
             onFailure();

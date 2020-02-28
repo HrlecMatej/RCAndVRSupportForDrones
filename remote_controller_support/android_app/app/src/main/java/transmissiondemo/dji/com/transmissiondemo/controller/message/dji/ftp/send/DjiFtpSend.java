@@ -2,10 +2,10 @@ package transmissiondemo.dji.com.transmissiondemo.controller.message.dji.ftp.sen
 
 import com.MAVLink.dji_icg.msg_dji_ftp;
 
-import transmissiondemo.dji.com.transmissiondemo.controller.transmission.SendCommandMessage;
+import transmissiondemo.dji.com.transmissiondemo.controller.transmission.SendDjiMessage;
 import transmissiondemo.dji.com.transmissiondemo.utilities.Utilities;
 
-public class DjiFtpSend extends SendCommandMessage<msg_dji_ftp> {
+public class DjiFtpSend extends SendDjiMessage<msg_dji_ftp> {
 
     private final short targetSystem;
     private final int sequence;

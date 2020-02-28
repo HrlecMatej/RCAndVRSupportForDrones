@@ -8,7 +8,7 @@ public class DjiActionCommandFlyTrajectorySend extends DjiActionCommandSend {
         this(targetSystem, null, null);
     }
 
-    protected DjiActionCommandFlyTrajectorySend(final short targetSystem, final Runnable onSuccessCallback, final Runnable onFailureCallback) {
+    public DjiActionCommandFlyTrajectorySend(final short targetSystem, final Runnable onSuccessCallback, final Runnable onFailureCallback) {
         super(targetSystem, DJI_ACTION.DJI_ACTION_FLY_TRAJECTORY, onSuccessCallback, onFailureCallback);
     }
 }

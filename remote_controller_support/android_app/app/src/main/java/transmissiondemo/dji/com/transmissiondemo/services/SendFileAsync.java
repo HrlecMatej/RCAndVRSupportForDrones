@@ -6,42 +6,42 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 
 import transmissiondemo.dji.com.transmissiondemo.MainActivity;
 import transmissiondemo.dji.com.transmissiondemo.controller.message.dji.ftp.send.DjiFtpRequestSend;
-import transmissiondemo.dji.com.transmissiondemo.controller.transmission.CommandMessageReceiver;
+import transmissiondemo.dji.com.transmissiondemo.controller.transmission.DjiMessageReceiver;
 import transmissiondemo.dji.com.transmissiondemo.utilities.Utilities;
 
 public class SendFileAsync extends AsyncTask<Void, Void, Boolean> {
 
     private final Uri uri;
-    private final ProgressBar progressBar;
+    private final WeakReference<ProgressBar> progressBar;
 
     public SendFileAsync(final Uri uri) {
         super();
         this.uri = uri;
-        progressBar = MainActivity.getInstance().progressBarFile;
+        progressBar = new WeakReference<>(MainActivity.getInstance().progressBarFile);
     }
 
     @Override
     protected Boolean doInBackground(final Void... voids) {
         try {
             Utilities.runOnUi(
-                () -> progressBar.setVisibility(View.VISIBLE)
+                () -> progressBar.get().setVisibility(View.VISIBLE)
             );
 
             final byte[] bytes = Utilities.readBytesFromUri(uri);
             final String fileName = Utilities.getFileName(uri);
 
             // Will start up the CommandMessageReceiver
-            CommandMessageReceiver.getInstance();
+            DjiMessageReceiver.getInstance();
 
-            final DjiFtpRequestSend ftpRequestSend = new DjiFtpRequestSend(
+            new DjiFtpRequestSend(
                 MainActivity.DJI_DRONE_SYSID,
                 fileName,
                 bytes
-            );
-            ftpRequestSend.execute();
+            ).execute();
 
         } catch (final IOException e) {
             e.printStackTrace();
@@ -49,8 +49,8 @@ public class SendFileAsync extends AsyncTask<Void, Void, Boolean> {
 
         Utilities.runOnUi(
             () -> {
-                progressBar.setVisibility(View.INVISIBLE);
-                progressBar.setProgress(0);
+                progressBar.get().setVisibility(View.INVISIBLE);
+                progressBar.get().setProgress(0);
             }
         );
 

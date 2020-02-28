@@ -8,7 +8,7 @@ public class DjiActionCommandTakeOffSend extends DjiActionCommandSend {
         this(targetSystem, null, null);
     }
 
-    protected DjiActionCommandTakeOffSend(final short targetSystem, final Runnable onSuccessCallback, final Runnable onFailureCallback) {
+    public DjiActionCommandTakeOffSend(final short targetSystem, final Runnable onSuccessCallback, final Runnable onFailureCallback) {
         super(targetSystem, DJI_ACTION.DJI_ACTION_TAKE_OFF, onSuccessCallback, onFailureCallback);
     }
 }

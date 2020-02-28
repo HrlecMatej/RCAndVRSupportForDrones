@@ -7,9 +7,9 @@ import java.util.Arrays;
 
 import transmissiondemo.dji.com.transmissiondemo.MainActivity;
 import transmissiondemo.dji.com.transmissiondemo.controller.message.dji.ftp.send.DjiFtpSend;
-import transmissiondemo.dji.com.transmissiondemo.controller.transmission.ReceiveCommandMessage;
+import transmissiondemo.dji.com.transmissiondemo.controller.transmission.ReceiveDjiMessage;
 
-public class DjiFtpRequestResendReceive extends ReceiveCommandMessage<msg_dji_ftp_request_resend> {
+public class DjiFtpRequestResendReceive extends ReceiveDjiMessage<msg_dji_ftp_request_resend> {
 
     private final short targetDroneSystem;
     private final short fileId;
@@ -34,7 +34,7 @@ public class DjiFtpRequestResendReceive extends ReceiveCommandMessage<msg_dji_ft
 
 
     @Override
-    protected void fillCommand(final msg_dji_ftp_request_resend msg) {
+    protected void fillMessage(final msg_dji_ftp_request_resend msg) {
         sequenceStart = msg.sequence_start;
         sequenceEnd = msg.sequence_end;
     }

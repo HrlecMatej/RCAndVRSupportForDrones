@@ -8,11 +8,11 @@ import java.util.Arrays;
 
 import transmissiondemo.dji.com.transmissiondemo.MainActivity;
 import transmissiondemo.dji.com.transmissiondemo.controller.message.dji.ftp.send.DjiFtpSend;
-import transmissiondemo.dji.com.transmissiondemo.controller.transmission.ReceiveCommandMessage;
+import transmissiondemo.dji.com.transmissiondemo.controller.transmission.ReceiveDjiMessage;
 import transmissiondemo.dji.com.transmissiondemo.utilities.DjiLogger;
 import transmissiondemo.dji.com.transmissiondemo.utilities.Utilities;
 
-public class DjiFtpRequestAckReceive extends ReceiveCommandMessage<msg_dji_ftp_request_ack> {
+public class DjiFtpRequestAckReceive extends ReceiveDjiMessage<msg_dji_ftp_request_ack> {
 
     private final short targetDroneSystem;
     private final short fileId;
@@ -36,7 +36,7 @@ public class DjiFtpRequestAckReceive extends ReceiveCommandMessage<msg_dji_ftp_r
     }
 
     @Override
-    protected void fillCommand(final msg_dji_ftp_request_ack msg) {
+    protected void fillMessage(final msg_dji_ftp_request_ack msg) {
         result = msg.result;
         progress = msg.progress;
     }

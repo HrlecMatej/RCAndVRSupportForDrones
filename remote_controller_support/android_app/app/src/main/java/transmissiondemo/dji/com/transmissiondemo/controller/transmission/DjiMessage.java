@@ -9,11 +9,15 @@ import transmissiondemo.dji.com.transmissiondemo.controller.wrapper.MAVLinkStats
 import transmissiondemo.dji.com.transmissiondemo.utilities.DjiThreadPool;
 import transmissiondemo.dji.com.transmissiondemo.utilities.Utilities;
 
+/**
+ * The main class that help pack-up messages.
+ * It mostly handles sync and async execution on threads.
+ * Further logic is further divided into Receive and Send classes.
+ * @param <T>
+ */
+public abstract class DjiMessage<T extends MAVLinkMessage> {
 
-// TODO: Split CommandMessage into Send and Receive versions
-public abstract class CommandMessage<T extends MAVLinkMessage> {
-
-    protected final int msgId;
+    final int msgId;
 
     private boolean continueRepeatingExecute = true;
 
@@ -26,7 +30,7 @@ public abstract class CommandMessage<T extends MAVLinkMessage> {
      */
     protected Runnable onFailureCallback;
 
-    protected CommandMessage(final int msgId, final Runnable onSuccessCallback, final Runnable onFailureCallback) {
+    DjiMessage(final int msgId, final Runnable onSuccessCallback, final Runnable onFailureCallback) {
         this.msgId = msgId;
         this.onSuccessCallback = onSuccessCallback;
         this.onFailureCallback = onFailureCallback;
@@ -59,20 +63,6 @@ public abstract class CommandMessage<T extends MAVLinkMessage> {
 
     public void setOnFailureCallback(final Runnable onFailureCallback) {
         this.onFailureCallback = onFailureCallback;
-    }
-
-
-    protected byte[] encode(final T msg) {
-        final MAVLinkPacket packet = msg.pack();
-
-        final MAVLinkStatsWrapper mavLinkStatsWrapper = MAVLinkStatsWrapper
-            .getInstance();
-        packet.seq = mavLinkStatsWrapper
-            .getSequenceNumber(packet.sysid, packet.compid);
-        mavLinkStatsWrapper.mavLinkStats.newPacket(packet);
-
-        final byte[] packetBytes = packet.encodePacket();
-        return packetBytes;
     }
 
     /**

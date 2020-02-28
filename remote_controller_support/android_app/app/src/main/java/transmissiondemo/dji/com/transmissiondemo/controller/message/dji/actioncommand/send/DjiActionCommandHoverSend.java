@@ -8,7 +8,7 @@ public class DjiActionCommandHoverSend extends DjiActionCommandSend {
         this(targetSystem, null, null);
     }
 
-    protected DjiActionCommandHoverSend(final short targetSystem, final Runnable onSuccessCallback, final Runnable onFailureCallback) {
+    public DjiActionCommandHoverSend(final short targetSystem, final Runnable onSuccessCallback, final Runnable onFailureCallback) {
         super(targetSystem, DJI_ACTION.DJI_ACTION_HOVER, onSuccessCallback, onFailureCallback);
     }
 }

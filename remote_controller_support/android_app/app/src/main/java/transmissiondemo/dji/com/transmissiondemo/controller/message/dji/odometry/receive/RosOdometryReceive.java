@@ -3,9 +3,9 @@ package transmissiondemo.dji.com.transmissiondemo.controller.message.dji.odometr
 import com.MAVLink.dji_icg.msg_ros_odometry;
 
 import transmissiondemo.dji.com.transmissiondemo.MainActivity;
-import transmissiondemo.dji.com.transmissiondemo.controller.transmission.ReceiveCommandMessage;
+import transmissiondemo.dji.com.transmissiondemo.controller.transmission.ReceiveDjiMessage;
 
-public class RosOdometryReceive extends ReceiveCommandMessage<msg_ros_odometry> {
+public class RosOdometryReceive extends ReceiveDjiMessage<msg_ros_odometry> {
 
     public long sec;
     public long nsec;
@@ -27,7 +27,7 @@ public class RosOdometryReceive extends ReceiveCommandMessage<msg_ros_odometry> 
     }
 
     @Override
-    protected void fillCommand(final msg_ros_odometry msg) {
+    protected void fillMessage(final msg_ros_odometry msg) {
         sec = msg.sec;
         nsec = msg.nsec;
 

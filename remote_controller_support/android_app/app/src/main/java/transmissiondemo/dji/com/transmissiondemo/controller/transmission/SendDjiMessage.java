@@ -2,17 +2,19 @@ package transmissiondemo.dji.com.transmissiondemo.controller.transmission;
 
 import android.util.Log;
 
+import com.MAVLink.MAVLinkPacket;
 import com.MAVLink.Messages.MAVLinkMessage;
 
 import java.util.concurrent.CompletableFuture;
 
+import transmissiondemo.dji.com.transmissiondemo.controller.wrapper.MAVLinkStatsWrapper;
 import transmissiondemo.dji.com.transmissiondemo.utilities.DjiLogger;
 
-public abstract class SendCommandMessage<T extends MAVLinkMessage> extends CommandMessage<T> {
+public abstract class SendDjiMessage<T extends MAVLinkMessage> extends DjiMessage<T> {
 
-    final int NUM_OF_REPETITIONS = 5;
+    private final int NUM_OF_REPETITIONS = 5;
 
-    protected SendCommandMessage(final int msgId, final Runnable onSuccessCallback, final Runnable onFailureCallback) {
+    protected SendDjiMessage(final int msgId, final Runnable onSuccessCallback, final Runnable onFailureCallback) {
         super(msgId, onSuccessCallback, onFailureCallback);
     }
 
@@ -52,11 +54,14 @@ public abstract class SendCommandMessage<T extends MAVLinkMessage> extends Comma
         }
     }
 
+    /**
+     * Defines the mapping from our SendDjiMessage to a MavLink one
+     * @return
+     */
     protected abstract T fillMessage();
 
     /**
      * Packs and encodes a Mavlink message
-     *
      * @return encoded message
      */
     protected byte[] pack() {
@@ -64,10 +69,20 @@ public abstract class SendCommandMessage<T extends MAVLinkMessage> extends Comma
         return encode(msg);
     }
 
-    private CompletableFuture<Void> executeSendToRC() {
-        final CompletableFuture<Void> future =
-            CommandMessageSender.getInstance().addToQueue(this);
+    private byte[] encode(final T msg) {
+        final MAVLinkPacket packet = msg.pack();
 
-        return future;
+        final MAVLinkStatsWrapper mavLinkStatsWrapper = MAVLinkStatsWrapper
+                .getInstance();
+        packet.seq = mavLinkStatsWrapper
+                .getSequenceNumber(packet.sysid, packet.compid);
+        mavLinkStatsWrapper.mavLinkStats.newPacket(packet);
+
+        final byte[] packetBytes = packet.encodePacket();
+        return packetBytes;
+    }
+
+    private CompletableFuture<Void> executeSendToRC() {
+        return DjiMessageSender.getInstance().addToQueue(this);
     }
 }

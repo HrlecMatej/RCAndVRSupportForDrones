@@ -17,6 +17,11 @@ import java.util.concurrent.TimeUnit;
 import dji.thirdparty.sanselan.util.IOUtils;
 import transmissiondemo.dji.com.transmissiondemo.MainActivity;
 
+import static java.lang.Math.abs;
+import static java.lang.Math.asin;
+import static java.lang.Math.atan2;
+import static java.lang.Math.signum;
+
 /**
  * Created by sickness on 6.3.2018.
  */
@@ -127,5 +132,59 @@ public class Utilities {
         // Change it to nanoseconds, because that's what we need
         final long nanoSeconds = TimeUnit.MILLISECONDS.toNanos(deltaMilliSecs);
         return new Pair<>(seconds, nanoSeconds);
+    }
+
+    public static double[] fromEulerAngles(final double roll, final double pitch, final double yaw) {
+        // Apply Euler angle transformations
+        final double c1 = Math.cos(yaw / 2.0);
+        final double s1 = Math.sin(yaw / 2.0);
+        final double c2 = Math.cos(pitch / 2.0);
+        final double s2 = Math.sin(pitch / 2.0);
+        final double c3 = Math.cos(roll / 2.0);
+        final double s3 = Math.sin(roll / 2.0);
+        final double c1c2 = c1 * c2;
+        final double s1s2 = s1 * s2;
+
+        final double[] q = new double[4];
+        // Compute quaternion from components
+        q[0] = (c1c2 * c3 - s1s2 * s3);
+        q[1] = (c1c2 * s3 + s1s2 * c3);
+        q[2] = (s1 * c2 * c3 + c1 * s2 * s3);
+        q[3] = (c1 * s2 * c3 - s1 * c2 * s3);
+        return q;
+    }
+
+    /**
+     * Returns the components of the quaternion if it is represented
+     * as standard roll-pitch-yaw Euler angles.
+     *
+     * @return an array of the form {roll, pitch, yaw}.
+     */
+    public static double[] toEulerAngles(final double[] quaternion) {
+        final double x = quaternion[0];
+        final double y = quaternion[1];
+        final double z = quaternion[2];
+        final double w = quaternion[3];
+        // roll (x-axis rotation)
+        final double sinr = +2.0 * (w * x + y * z);
+        final double cosr = +1.0 - 2.0 * (x * x + y * y);
+        final double r_roll = atan2(sinr, cosr);
+
+        // pitch (y-axis rotation)
+        final double sinp = +2.0 * (w * y - z * x);
+        final double r_pitch;
+        if (abs(sinp) >= 1) {
+            r_pitch = (Math.PI / 2) * signum(sinp); // use 90 degrees if out of range
+        } else {
+            r_pitch = asin(sinp);
+        }
+
+        // yaw (z-axis rotation)
+        final double siny = +2.0 * (w * z + x * y);
+        final double cosy = +1.0 - 2.0 * (y * y + z * z);
+        final double r_yaw = atan2(siny, cosy);
+
+        // Convert to degrees and return
+        return new double[]{r_roll * 180 / Math.PI, r_pitch * 180 / Math.PI, r_yaw * 180 / Math.PI};
     }
 }
