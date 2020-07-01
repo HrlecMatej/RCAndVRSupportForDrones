@@ -3,6 +3,8 @@ Source code for my master thesis.
 
 Detailed instructions are provided in sub-readmes.
 
+Link to the repository with my master thesis: https://repozitorij.uni-lj.si/IzpisGradiva.php?id=112876&lang=eng
+
 My master's thesis provides with two contributions:
 - A communication protocol based on MAVLink between an Android device and a DJI drone's onboard ROS computer
 - A virtual reality plugin based on OpenVR for ROS, which runs natively in RViz's OGRE engine
