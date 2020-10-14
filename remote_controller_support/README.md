@@ -31,7 +31,8 @@ To not have issues during compiling, just use one thread
 Get Mavlink and header generation tool
 - pip install --user future- sudo apt-get install python-tk
 
-Inside src folder- git clone https://github.com/mavlink/mavlink.git --recursive mavlink_repo
+Inside src folder
+- git clone https://github.com/mavlink/mavlink.git --recursive mavlink_repo
 - git clone https://github.com/mavlink/mavlink.git --recursive- add to .bashrc: PYTHONPATH=your_path_to_mavlink_clone
 - NOTE: the PYTHONPATH variables needs to be defined before sourcing any workspace
 - See: https://answers.ros.org/question/236707/ros-environmental-variable-problem/
@@ -41,8 +42,11 @@ To add a new mavlink dialect- cd mavlink/message_definitions/v1.0
 - cd mavlink_repo/message_definitions/v1.0- dji_icg.xml is located inside the camera_drones repository “camera-drones/dji_icg.xml”
 - Create a dji_icg.xml, look to other dialects for guidance
 
-Currently a bug in mavgen_java.py- crc.update_checksum(len); is wrong- Change to crc.update_checksum(payloadSize);
-Get my repository for code in ROS from ros_app
-- git clone into second_workspace/src
+Currently a bug in mavgen_java.py
+- crc.update_checksum(len); is wrong
+- Change to crc.update_checksum(payloadSize);
+
+My code for ROS communication can be found in ros_app
+- git clone it into a second_workspace/src
 - catkin_make
 - source devel/setup.bash after Onboard-SDK-ROS repository
