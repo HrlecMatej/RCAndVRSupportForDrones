@@ -7,7 +7,9 @@ Requires installing Android Studio. Gradle build script will download and link u
 Requires much more work:
 
 We used Mavlink Kinetic release, which is 4.4.0 version, Mavros is 0.24.0.
+
 Because we still used ROS Indigo, there were many extra steps neccessary, which might not be needed on newer ROS versions anymore.
+
 Get Onboard-SDK-ROS
 - https://github.com/dji-sdk/Onboard-SDK-ROS.git
 
